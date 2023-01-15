@@ -1,0 +1,53 @@
+name: Update
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  schedule:
+    - cron: '0 */12 * * *'
+
+  workflow_dispatch:
+    inputs:
+      skipHash:
+        description: 'Skip hash check?'
+        required: true
+        default: ''
+        type: choice
+        options:
+        - ''
+        - 'true'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Set up `avatar` script
+        working-directory: scripts/avatar
+        run: npm install
+
+      - name: Run `avatar` script
+        working-directory: scripts/avatar
+        run: node .
+        env:
+          AVATAR_URL: ${{ secrets.AVATAR_URL }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          REGION: ${{ secrets.REGION }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+          SKIP_HASH: ${{ inputs.skipHash }}
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "ci: auto update"
