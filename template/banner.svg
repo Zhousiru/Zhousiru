@@ -1,5 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
     <defs>
+        <clipPath id="corner">
+            <rect x="0" y="0" width="500" height="200" rx="15" />
+        </clipPath>
         <linearGradient id="gradient-1">
             <stop offset="10%" stop-color="#60d8e3" />
             <stop offset="90%" stop-color="#90fdaf" />
@@ -13,17 +16,19 @@
         </filter>
     </defs>
 
-    <rect width="500" height="200" fill="#faffee" />
+    <g clip-path="url(#corner)">
+        <rect width="500" height="200" fill="#faffee" />
 
-    <circle id="mycircle" cx="0" cy="0" r="160" fill="url(#gradient-1)">
-        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0" to="360 0 0" dur="5s"
-            repeatCount="indefinite" />
-    </circle>
+        <circle id="mycircle" cx="0" cy="0" r="160" fill="url(#gradient-1)">
+            <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0" to="360 0 0"
+                dur="5s" repeatCount="indefinite" />
+        </circle>
 
-    <circle id="mycircle" cx="500" cy="280" r="200" fill="url(#gradient-2)" filter="url(#blur)">
-        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 500 280" to="360 500 280"
-            dur="5s" repeatCount="indefinite" />
-    </circle>
+        <circle id="mycircle" cx="500" cy="280" r="200" fill="url(#gradient-2)" filter="url(#blur)">
+            <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 500 280"
+                to="360 500 280" dur="5s" repeatCount="indefinite" />
+        </circle>
+    </g>
 
     <svg x="70" width="180" viewBox="0 0 1301 572">
         <path fill-rule="evenodd" fill="#000"
